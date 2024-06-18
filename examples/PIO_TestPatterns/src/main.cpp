@@ -138,7 +138,6 @@ void setup() {
 
   matrix->setTextSize(1);
   matrix->setTextWrap(false);
-  matrix->setCursor(1, 5);
   matrix->setTextColor(matrix->color565(255, 255, 255));
 }
 
@@ -187,7 +186,7 @@ void drawText(String colorWheelOffset) {}
 #else
 void drawText(const String& printedText) {
   matrix->setTextWrap(false);
-  matrix->setCursor(0, 0);
+  matrix->setCursor(0, 2);
   matrix->print(printedText);
 }
 #endif
