@@ -187,7 +187,7 @@ void drawText(String colorWheelOffset) {}
 #else
 void drawText(const String& printedText) {
   matrix->setTextWrap(false);
-  matrix->setCursor(1, 5);
+  matrix->setCursor(0, 0);
   matrix->print(printedText);
 }
 #endif
@@ -210,7 +210,7 @@ void spacingAngelDisplay(double distance, double vitesse) {
   distanceString = String(distance);
 
   if (distance <= 20 && distance > 15) {
-    matrix->setTextSize(1);
+    matrix->setTextSize(2,4);
     matrix->setTextColor(matrix->color565(255,0,0));
     matrix->clearScreen();
     drawText(distanceString + " m");
@@ -219,34 +219,31 @@ void spacingAngelDisplay(double distance, double vitesse) {
     drawText(tempsArretString + " s");
     delay(PATTERN_DELAY);
   } else if (distance <= 15 && distance > 10) {
-     
-    matrix->setTextSize(1.5);
+    matrix->setTextSize(2,4);
     matrix->setTextColor(matrix->color565(255, 0, 255));
     matrix->clearScreen();
-    drawText(distanceString + " m");
+    drawText(distanceString + "m");
     delay(PATTERN_DELAY);
     matrix->clearScreen();
-    drawText(tempsArretString + " s");
+    drawText(tempsArretString + "s");
     delay(PATTERN_DELAY);
   } else if (distance <= 10 && distance > 5) {
-     
-    matrix->setTextSize(1.7);
+    matrix->setTextSize(2,4);
     matrix->setTextColor(matrix->color565(100, 0, 255));
     matrix->clearScreen();
-    drawText(distanceString + " m");
+    drawText(distanceString + "m");
     delay(PATTERN_DELAY);
     matrix->clearScreen();
-    drawText(tempsArretString + " s");
+    drawText(tempsArretString + "s");
     delay(PATTERN_DELAY);
   } else if (distance <= 5) {
-     
-    matrix->setTextSize(2);
+    matrix->setTextSize(2,4);
     matrix->setTextColor(matrix->color565(0, 0, 255));
     matrix->clearScreen();
-    drawText(distanceString + " m");
+    drawText(distanceString + "m");
     delay(PATTERN_DELAY);
     matrix->clearScreen();
-    drawText(tempsArretString + " s");
+    drawText(tempsArretString + "s");
     delay(PATTERN_DELAY);
   } else {
      
