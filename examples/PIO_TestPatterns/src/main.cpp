@@ -17,6 +17,7 @@
 #include <ESP32-HUB75-MatrixPanel-I2S-DMA.h>
 #endif
 #include "main.h"
+#include <sstream>  // Pour std::ostringstream
 
 const char* ssid = "ESP32_Access_Point";
 const char* password = "12345678";
@@ -24,7 +25,7 @@ const char* password = "12345678";
 AsyncWebServer server(80);
 
 double vitesse = 50;
-double distance = 5;
+int distance = 3;
 
 String vitesseString = "";
 String distanceString = "";
@@ -102,7 +103,7 @@ void setup() {
   server.on("/setDistance", HTTP_GET, [](AsyncWebServerRequest *request) { // Correction ici
     if (request->hasParam("distance")) {
       String distanceParam = request->getParam("distance")->value();
-      distance = distanceParam.toDouble();
+      distance = distanceParam.toInt();
       distanceString = distanceParam;
       Serial.println("Distance reçue : " + distanceParam);
       request->send(200, "text/plain", "Distance définie à " + distanceParam);
@@ -149,10 +150,11 @@ void loop() {
 #endif
 
 #ifndef VIRTUAL_PANE
-  spacingAngelDisplay(distance, vitesse);
-  distance++;
-  Serial.println("Nouvel affichage et distance : ");
-  Serial.println(distance);
+  for (distance = 5 ; distance < 20 ; distance = distance + 5){
+    spacingAngelDisplay(distance, vitesse);
+    Serial.println("Nouvel affichage et distance : ");
+    Serial.println(distance);
+  }
 #endif
 }
 
@@ -203,54 +205,59 @@ uint16_t colorWheel(uint8_t pos) {
   }
 }
 
-void spacingAngelDisplay(double distance, double vitesse) {
-  double tempsArret = distance / (3.6 * vitesse);
-  String tempsArretString = String(tempsArret);
-  distanceString = String(distance);
 
-  if (distance <= 20 && distance > 15) {
-    matrix->setTextSize(2,4);
-    matrix->setTextColor(matrix->color565(255,0,0));
-    matrix->clearScreen();
-    drawText(distanceString + " m");
-    delay(PATTERN_DELAY);
-    matrix->clearScreen();
-    drawText(tempsArretString + " s");
-    delay(PATTERN_DELAY);
-  } else if (distance <= 15 && distance > 10) {
-    matrix->setTextSize(2,4);
-    matrix->setTextColor(matrix->color565(255, 0, 255));
-    matrix->clearScreen();
-    drawText(distanceString + "m");
-    delay(PATTERN_DELAY);
-    matrix->clearScreen();
-    drawText(tempsArretString + "s");
-    delay(PATTERN_DELAY);
-  } else if (distance <= 10 && distance > 5) {
-    matrix->setTextSize(2,4);
-    matrix->setTextColor(matrix->color565(100, 0, 255));
-    matrix->clearScreen();
-    drawText(distanceString + "m");
-    delay(PATTERN_DELAY);
-    matrix->clearScreen();
-    drawText(tempsArretString + "s");
-    delay(PATTERN_DELAY);
-  } else if (distance <= 5) {
-    matrix->setTextSize(2,4);
-    matrix->setTextColor(matrix->color565(0, 0, 255));
-    matrix->clearScreen();
-    drawText(distanceString + "m");
-    delay(PATTERN_DELAY);
-    matrix->clearScreen();
-    drawText(tempsArretString + "s");
-    delay(PATTERN_DELAY);
-  } else {
-     
-    matrix->setTextSize(1);
-    matrix->setTextColor(matrix->color565(0, 255, 0));
-    matrix->clearScreen();
-    drawText("Stand by");
-    delay(PATTERN_DELAY);
-  }
-  
+void spacingAngelDisplay(int distance, double vitesse) {
+    double tempsArret = distance / (3.6 * vitesse);
+    int sizeText = 1; 
+    // Utiliser std::ostringstream pour formater le double
+    std::ostringstream oss;
+    oss.precision(1);
+    oss << std::fixed << tempsArret;
+    String tempsArretString = String(oss.str().c_str());
+
+    distanceString = String(distance);
+
+    if (distance <= 20 && distance > 15) {
+        matrix->setTextSize(sizeText);
+        matrix->setTextColor(matrix->color565(255, 0, 0));
+        matrix->clearScreen();
+        drawText(distanceString + "m");
+        delay(PATTERN_DELAY);
+        matrix->clearScreen();
+        drawText(tempsArretString + "s");
+        delay(PATTERN_DELAY);
+    } else if (distance <= 15 && distance > 10) {
+        matrix->setTextSize(sizeText);
+        matrix->setTextColor(matrix->color565(255, 0, 255));
+        matrix->clearScreen();
+        drawText(distanceString + "m");
+        delay(PATTERN_DELAY);
+        matrix->clearScreen();
+        drawText(tempsArretString + "s");
+        delay(PATTERN_DELAY);
+    } else if (distance <= 10 && distance > 5) {
+        matrix->setTextSize(sizeText);
+        matrix->setTextColor(matrix->color565(100, 0, 255));
+        matrix->clearScreen();
+        drawText(distanceString + "M");
+        delay(PATTERN_DELAY);
+        matrix->clearScreen();
+        drawText(tempsArretString + "S");
+        delay(PATTERN_DELAY);
+    } else if (distance <= 5) {
+        matrix->setTextSize(sizeText);
+        matrix->setTextColor(matrix->color565(0, 0, 255));
+        matrix->clearScreen();
+        drawText(distanceString + "M");
+        delay(PATTERN_DELAY);
+        matrix->clearScreen();
+        drawText(tempsArretString + "S");
+        delay(PATTERN_DELAY);
+    } else {
+        matrix->setTextSize(sizeText);
+        matrix->setTextColor(matrix->color565(0, 255, 0));
+        matrix->clearScreen();
+        drawText("Stand by");
+        delay(PATTERN_DELAY);
+    }
 }
