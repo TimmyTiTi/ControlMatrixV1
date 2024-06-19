@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang='fr'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name= 'viewport ' content= 'width=device-width, initial-scale=1.0 '>
+  <title>Sélection vitesse spacing angels</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+    h1 {
+      color: #333;
+    }
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    .slider-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .slider-container input {
+      margin-left: 10px;
+      flex: 1;
+    }
+    p {
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class= 'container '>
+    <h1>Sélection vitesse</h1>
+    <div class= 'slider-container '>
+      <label for= 'speedRange '>Vitesse:</label>
+      <input type= 'range ' id= 'speedRange ' min= '1 ' max= '130 ' value= '65 ' oninput= 'updateSpeed(this.value) '>
+    </div>
+    <p id= 'speedValue '>Vitesse actuelle: 65</p>
+
+    <h1>Sélection distance</h1>
+    <div class= 'slider-container '>
+      <label for= 'distanceRange '>Distance:</label>
+      <input type= 'range ' id= 'distanceRange ' min= '1 ' max= '30 ' value= '15 ' oninput= 'updateDistance(this.value) '>
+    </div>
+    <p id= 'distanceValue '>Distance actuelle: 15</p>
+  </div>
+
+  <script>
+    function updateSpeed(value) {
+      document.getElementById('speedValue').textContent = 'Vitesse actuelle: ' + value;
+      sendSpeedToESP(value);
+    }
+
+    function updateDistance(value) {
+      document.getElementById('distanceValue').textContent = 'Distance actuelle: ' + value;
+      sendDistanceToESP(value);
+    }
+
+    function sendSpeedToESP(speed) {
+      const xhr = new XMLHttpRequest();
+      const url = `http://192.168.4.1/setSpeed?speed=${speed}`;
+      xhr.open('GET', url, true);
+      xhr.send();
+    }
+
+    function sendDistanceToESP(distance) {
+      const xhr = new XMLHttpRequest();
+      const url = `http://192.168.4.1/setDistance?distance=${distance}`;
+      xhr.open('GET', url, true);
+      xhr.send();
+    }
+  </script>
+</body>
+</html>
+
+
+String page = "<!DOCTYPE html> ";
+page += "  < html lang = 'fr' > ";
+page += "<head>";
+page += "<meta charset='UTF-8'>";
+page += "  <meta name= 'viewport ' content= 'width=device-width, initial-scale=1.0 '>";
+page += "  <title>Sélection vitesse spacing angels</title>";
+page += "  <style>";
+page += "    body {";
+page += "      font-family: Arial, sans-serif;";
+page += "     display: flex;";
+page += "     flex-direction: column;";
+page += "     align-items: center;";
+page += "     justify-content: center;";
+page += "     height: 100vh;";
+page += "     margin: 0;";
+page += "     background-color: #f0f0f0;";
+page += "   }";
+page += "   h1 {";
+page += "     color: #333;";
+page += "   }";
+page += "  .container {";
+page += "    background: white;";
+page += "    padding: 20px;";
+page += "     border-radius: 8px;";
+page += "     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);";
+page += "     text-align: center;";
+page += "   }";
+page += "  .slider-container {";
+page += "   display: flex;";
+page += "    align-items: center;";
+page += "    margin-bottom: 20px;";
+page += "   }";
+page += "   .slider-container input {";
+page += "    margin-left: 10px;";
+page += "    flex: 1;";
+page += " }";
+page += "  p {";
+page += "   margin: 10px 0;";
+page += "  }";
+page += " </style>";
+page += "</head>";
+page += "<body>";
+page += " <div class= 'container '>";
+page += "  <h1>Sélection vitesse</h1>";
+page += "   <div class= 'slider-container '>";
+page += "     <label for= 'speedRange '>Vitesse:</label>";
+page += "    <input type= 'range ' id= 'speedRange ' min= '1 ' max= '130 ' value= '65 ' oninput= 'updateSpeed(this.value) '>";
+page += "  </div>";
+page += "  <p id= 'speedValue '>Vitesse actuelle: 65</p>";
+
+page += "   <h1>Sélection distance</h1>";
+page += "  <div class= 'slider-container '>";
+page += "    <label for= 'distanceRange '>Distance:</label>";
+page += "    <input type= 'range ' id= 'distanceRange ' min= '1 ' max= '30 ' value= '15 ' oninput= 'updateDistance(this.value) '>";
+page += "  </div> ";
+page += "   <p id= 'distanceValue '>Distance actuelle: 15</p>";
+page += " </div> ";
+
+page += " <script>";
+page += "  function updateSpeed(value) {";
+page += "    document.getElementById('speedValue').textContent = 'Vitesse actuelle: ' + value;";
+page += "    sendSpeedToESP(value);";
+page += "  }";
+
+page += "  function updateDistance(value) {";
+page += "     document.getElementById('distanceValue').textContent = 'Distance actuelle: ' + value;";
+page += "     sendDistanceToESP(value);";
+page += "  }";
+
+page += "  function sendSpeedToESP(speed) {";
+page += "    const xhr = new XMLHttpRequest();";
+page += "    const url = `http://192.168.4.1/setSpeed?speed=${speed}`;";
+page += "    xhr.open('GET', url, true);";
+page += "    xhr.send();";
+page += "  }";
+
+page += "  function sendDistanceToESP(distance) {";
+page += "    const xhr = new XMLHttpRequest();";
+page += "    const url = `http://192.168.4.1/setDistance?distance=${distance}`;";
+page += "    xhr.open('GET', url, true);";
+page += "    xhr.send();";
+page += "  }";
+page += " </script>";
+page += "</body>";
+page += "</html>";
+
+
+
