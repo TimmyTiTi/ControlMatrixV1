@@ -150,7 +150,7 @@ void loop() {
 #endif
 
 #ifndef VIRTUAL_PANE
-  for (distance = 5 ; distance < 20 ; distance = distance + 5){
+  for (distance = 5 ; distance < 21 ; distance = distance + 5){
     spacingAngelDisplay(distance, vitesse);
     Serial.println("Nouvel affichage et distance : ");
     Serial.println(distance);
